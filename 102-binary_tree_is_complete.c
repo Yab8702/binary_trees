@@ -86,7 +86,6 @@ int is_complete(queue_t **head, int flag, int full)
 	node = poped->child;
 	if (full == 0)
 	{
-		
 		if (!(node->left == NULL && node->right == NULL))
 			flag = 0;
 	}
