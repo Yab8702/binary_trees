@@ -2,6 +2,44 @@
 
 
 /**
+ * balancer - insert a new node in a Binary Search Tree
+ * @node: a pointer to the first node
+ * @value: int value
+ *
+ * Return: If no common ancestor was found return NULL
+ */
+void balancer(avl_t **node, int value)
+{
+	int balancer;
+
+	balancer = binary_tree_balance(*node);
+
+	if (balancer > 1 && value < (*node)->left->n)
+	{
+		*node = binary_tree_rotate_right(*node);
+		return;
+	}
+	if (balancer < -1 && value > (*node)->right->n)
+	{
+		*node = binary_tree_rotate_left(*node);
+		return;
+	}
+
+	if (balancer > 1 && value > (*node)->left->n)
+	{
+		(*node)->left = binary_tree_rotate_left((*node)->left);
+		*node = binary_tree_rotate_right(*node);
+		return;
+	}
+
+	if (balancer < -1 && value < (*node)->right->n)
+	{
+		(*node)->right = binary_tree_rotate_right((*node)->right);
+		*node = binary_tree_rotate_left(*node);
+		return;
+	}
+}
+/**
  * avl_recu - insert a new node in a Binary Search Tree
  * @tree: a pointer to the first node
  * @value: int value
@@ -50,44 +88,6 @@ avl_t *avl_recu(avl_t **tree, int value)
 	return (NULL);
 }
 
-/**
- * balancer - insert a new node in a Binary Search Tree
- * @node: a pointer to the first node
- * @value: int value
- *
- * Return: If no common ancestor was found return NULL
- */
-void balancer(avl_t **node, int value)
-{
-	int balancer;
-
-	balancer = binary_tree_balance(*node);
-
-	if (balancer > 1 && value < (*node)->left->n)
-	{
-		*node = binary_tree_rotate_right(*node);
-		return;
-	}
-	if (balancer < -1 && value > (*node)->right->n)
-	{
-		*node = binary_tree_rotate_left(*node);
-		return;
-	}
-
-	if (balancer > 1 && value > (*node)->left->n)
-	{
-		(*node)->left = binary_tree_rotate_left((*node)->left);
-		*node = binary_tree_rotate_right(*node);
-		return;
-	}
-
-	if (balancer < -1 && value < (*node)->right->n)
-	{
-		(*node)->right = binary_tree_rotate_right((*node)->right);
-		*node = binary_tree_rotate_left(*node);
-		return;
-	}
-}
 
 /**
  * avl_insert - insert a new node in a Binary Search Tree
